@@ -156,10 +156,10 @@ document.addEventListener('click', function(event) {
   
     // Блокируем кнопку и меняем текст на "Отправка..."
     submitBtn.disabled = true;
-    submitBtn.classList.add("button__touch");  // активируем стиль нажатия (по твоему SCSS)
     const originalText = submitBtn.textContent;
     submitBtn.textContent = "Отправка...";
   
+    // --- ВАРИАНТ 1: РЕАЛЬНАЯ ОТПРАВКА НА СЕРВЕР send.php ---
     fetch("send.php", {
       method: "POST",
       body: formData
@@ -185,12 +185,27 @@ document.addEventListener('click', function(event) {
       }, 4000);
     })
     .finally(() => {
-      // Разблокируем кнопку и восстанавливаем текст
       submitBtn.disabled = false;
-      submitBtn.classList.remove("button__touch");
       submitBtn.textContent = originalText;
     });
+  
+    /*
+    // --- ВАРИАНТ 2: ШАБЛОННАЯ ОТПРАВКА (для демонстрации без PHP) ---
+    setTimeout(() => {
+      toast.textContent = "Спасибо! Ваш ответ получен!";
+      toast.className = "toast show success";
+      form.reset();
+  
+      setTimeout(() => {
+        toast.className = "toast"; // скрыть сообщение
+      }, 8000);
+  
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }, 1500);
+    */
   });
+  
   
 
 
