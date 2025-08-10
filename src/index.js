@@ -146,11 +146,19 @@ document.addEventListener('click', function(event) {
 
 
   // Ниже - отправка формы с обраоткой на стороне серврера через send.php
-document.querySelector("form").addEventListener("submit", function(e) {
+  document.querySelector("form").addEventListener("submit", function(e) {
     e.preventDefault();
   
     const form = e.target;
+    const submitBtn = form.querySelector("button[type='submit']");
+    const toast = document.getElementById("form-toast");
     const formData = new FormData(form);
+  
+    // Блокируем кнопку и меняем текст на "Отправка..."
+    submitBtn.disabled = true;
+    submitBtn.classList.add("button__touch");  // активируем стиль нажатия (по твоему SCSS)
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Отправка...";
   
     fetch("send.php", {
       method: "POST",
@@ -158,7 +166,6 @@ document.querySelector("form").addEventListener("submit", function(e) {
     })
     .then(response => response.json())
     .then(data => {
-      const toast = document.getElementById("form-toast");
       toast.textContent = data.message;
       toast.className = "toast show " + (data.success ? "success" : "error");
   
@@ -171,16 +178,20 @@ document.querySelector("form").addEventListener("submit", function(e) {
       }, 8000);
     })
     .catch(() => {
-      const toast = document.getElementById("form-toast");
       toast.textContent = "Сервер недоступен. Попробуйте позже.";
-      // toast.textContent = "Спасибо! Ваш ответ получен!";  // Вместо сообщения об ошибке - показ сообщения об успехе (исключительно для публикации как примера работ, без хостинга (форма не отсылает к файлу send.php)). При продакшн запустить вместо этой строку выше
       toast.className = "toast show error";
-  
       setTimeout(() => {
         toast.className = "toast";
       }, 4000);
+    })
+    .finally(() => {
+      // Разблокируем кнопку и восстанавливаем текст
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("button__touch");
+      submitBtn.textContent = originalText;
     });
   });
+  
 
 
 
