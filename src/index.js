@@ -160,36 +160,36 @@ document.addEventListener('click', function(event) {
     submitBtn.textContent = "Отправка...";
   
     // --- ВАРИАНТ 1: РЕАЛЬНАЯ ОТПРАВКА НА СЕРВЕР send.php ---
-    fetch("send.php", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      toast.textContent = data.message;
-      toast.className = "toast show " + (data.success ? "success" : "error");
+    // fetch("send.php", {
+    //   method: "POST",
+    //   body: formData
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   toast.textContent = data.message;
+    //   toast.className = "toast show " + (data.success ? "success" : "error");
   
-      if (data.success) {
-        form.reset();
-      }
+    //   if (data.success) {
+    //     form.reset();
+    //   }
   
-      setTimeout(() => {
-        toast.className = "toast"; // скрыть сообщение
-      }, 8000);
-    })
-    .catch(() => {
-      toast.textContent = "Сервер недоступен. Попробуйте позже.";
-      toast.className = "toast show error";
-      setTimeout(() => {
-        toast.className = "toast";
-      }, 4000);
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    });
+    //   setTimeout(() => {
+    //     toast.className = "toast"; // скрыть сообщение
+    //   }, 8000);
+    // })
+    // .catch(() => {
+    //   toast.textContent = "Сервер недоступен. Попробуйте позже.";
+    //   toast.className = "toast show error";
+    //   setTimeout(() => {
+    //     toast.className = "toast";
+    //   }, 4000);
+    // })
+    // .finally(() => {
+    //   submitBtn.disabled = false;
+    //   submitBtn.textContent = originalText;
+    // });
   
-    /*
+    
     // --- ВАРИАНТ 2: ШАБЛОННАЯ ОТПРАВКА (для демонстрации без PHP) ---
     setTimeout(() => {
       toast.textContent = "Спасибо! Ваш ответ получен!";
@@ -203,7 +203,7 @@ document.addEventListener('click', function(event) {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
     }, 1500);
-    */
+    
   });
   
   
