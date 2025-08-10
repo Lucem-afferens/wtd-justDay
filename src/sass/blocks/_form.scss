@@ -87,15 +87,6 @@ form {
         background: $form-color;
         transition: all 500ms ease;
         color: #fff;
-        &:active {
-            transform: scale(.9);
-            background: rgba(#ac3b61, .3);
-        }
-        &__touch {
-            transform: scale(.9);
-            background: rgba(#ac3b61, .3);
-            color: #333;
-        }
     }
 
 }
